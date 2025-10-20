@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="500mm"
+	height="150mm" viewBox="0 0 500 150">
+
+	<!-- Hintergrund -->
+	<g transform="translate(0, 0)">
+		<path fill="#F1F0EA" stroke="#000000" stroke-width="0.1" d="M 0,75 l 75,-75 425,0 0,150 -425,0 z " />
+		<path fill="#325928" stroke="none"
+			d="M 14.14213562373095,75 l 65,-65 410.85786437626905,0 0,130 -410.85786437626905,0 z " />
+	</g>
+
+	<!-- Markierungen -->
+	<g transform="translate(106, 0)">
+		<circle cx="382" cy="75" r="3.75" fill="#FFFFFF" stroke="#000000" stroke-width="0.5" />
+		<line x1="382" y1="70" x2="382" y2="80" fill="none" stroke="#000000" stroke-width="0.25" />
+		<line x1="377" y1="75" x2="387" y2="75" fill="none" stroke="#000000" stroke-width="0.25" />
+		<circle cx="-0.5" cy="75" r="3.75" fill="#FFFFFF" stroke="#000000" stroke-width="0.5" />
+		<line x1="-0.5" y1="70" x2="-0.5" y2="80" fill="none" stroke="#000000" stroke-width="0.25" />
+		<line x1="-5.5" y1="75" x2="4.5" y2="75" fill="none" stroke="#000000" stroke-width="0.25" />
+	</g>
+
+	<!-- Wegsymbole -->
+	<g transform="translate(37, 60)">
+		<!-- Wegsymbol 1 -->
+		<g transform="translate(0, 0)">
+			<rect width="30" height="30" fill="blue" />
+			<svg xmlns="http://www.w3.org/2000/svg" width="580" height="580" transform="scale(0.1)" version="1.0">
+				<path fill="#111" stroke="#eee" stroke-width="3.408"
+					d="M66.275 1.768c-41.335 0-64.571 21.371-64.571 65.036v450.123c0 40.844 20.895 62.229 62.192 62.229H515.92c41.307 0 62.229-20.315 62.229-62.229V66.804c0-42.601-20.922-65.036-63.521-65.036-.004 0-448.495-.143-448.353 0z" />
+				<path fill="#fff"
+					d="m292.526 455.653 10.369 85.148c1.248 9.296 6.827 14.715 16.738 16.257 6.818.936 12.783-.998 17.895-5.802 5.111-4.804 7.203-10.615 6.277-17.434l-12.24-96.751c-1.24-7.13-5.562-11.446-9.687-17.198l-31.734-44.25 30.683-53.45 15.334 19.519c1.239 1.863 3.102 3.258 5.59 4.185l34.465 16.738c1.541.615 2.931.922 4.17.922 4.341 0 8.062-1.704 11.164-5.114 3.102-3.409 4.653-7.284 4.653-11.624 0-7.745-3.721-12.857-11.164-15.335l-26.564-14.866-38.116-46.031c-5.268-6.194-12.705-10.067-22.313-11.618-16.73-2.477-29.279 3.41-37.648 17.66l-42.3 72.984c-2.79 4.653-4.03 10.384-3.717 17.193l1.39 92.502-32.073 68.799c-1.239 2.79-2.01 5.11-2.312 6.965-.937 5.891.3 11.083 3.71 15.575 3.408 4.492 8.059 7.206 13.95 8.142 9.911 1.542 16.88-1.867 20.91-10.227l35.335-75.31a21.505 21.505 0 0 0 1.858-8.823l-.468-57.181 35.845 48.425zm24.585-200.889c8.369 0 15.65-3.02 21.845-9.064 6.194-6.043 9.291-13.4 9.291-22.072 0-8.37-3.097-15.653-9.291-21.853-6.195-6.198-13.476-9.298-21.845-9.298-8.682 0-16.044 3.1-22.087 9.298-6.043 6.2-9.065 13.484-9.064 21.853 0 8.672 3.021 16.03 9.064 22.072 6.043 6.043 13.405 9.065 22.087 9.064zm-108.773 85.07 46.485-79.949c3.102-5.267 2.019-9.296-3.248-12.086l-14.88-8.837c-5.268-3.092-9.297-2.005-12.087 3.263l-46.485 79.948c-3.092 5.268-2.005 9.296 3.263 12.086l14.866 8.823c5.267 3.102 9.296 2.02 12.086-3.248z"
+					font-family="NPSPICT3" font-size="40" font-weight="400"
+					style="text-align:start;line-height:125%;-inkscape-font-specification:NPSPICT3" />
+				<path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="12.867"
+					d="M378.767 360.29v180.37" />
+				<g fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+					transform="translate(0 -94)">
+					<path fill-rule="evenodd" stroke-width="22.944"
+						d="M31.672 267.243 288.3 130.375l256.627 136.868-17.183 17.498-85.795-34.606-153.741-18.503-154.092 18.236-85.347 34.488-17.097-17.113z" />
+					<rect width="31.996" height="308.131" x="456.8" y="266.578" stroke-width="25.165" ry="0" />
+					<rect width="31.996" height="308.131" x="84.8" y="266.578" stroke-width="25.165" ry="0" />
+				</g>
+			</svg>
+		</g>
+		<!-- Wegsymbol 2 -->
+		<g transform="translate(35, 0)">
+			<rect width="30" height="30" fill="blue" />
+		</g>
+	</g>
+
+	<!-- Textbereich -->
+	<g transform="translate(106, 0)">
+		<!-- Wegname -->
+		<g transform="translate(0, 27) translate(0,0)">
+			<text font-family="Arial Narrow" font-size="14" fill="#F7B500" stroke="none" x="0" y="0">
+				Wegname1 | Wegname2
+			</text>
+		</g>
+
+		<!-- Ziel 1 -->
+		<g transform="translate(0, 62)">
+			<text font-family="Arial Narrow" font-size="26" fill="white" stroke="none" x="0" y="0">
+				Großschwabhausen-Süd
+			</text>
+		</g>
+		<!-- Ziel 1 Picto 1 -->
+		<g transform="translate(242, 41.5)">
+			<rect width="22" height="22" fill="blue" />
+		</g>
+		<!-- Ziel 1 Picto 2 -->
+		<g transform="translate(267, 41.5)">
+			<rect width="22" height="22" fill="blue" />
+		</g>
+		<!-- Ziel 1 Distanz -->
+		<g transform="translate(372, 62)">
+			<text font-family="Arial Narrow" text-anchor="end" font-size="26" fill="white" stroke="none" x="0" y="0">
+				3,3km
+			</text>
+		</g>
+
+		<!-- Ziel 2 -->
+		<g transform="translate(0, 110)">
+			<text font-family="Arial Narrow" font-size="26" fill="white" stroke="none" x="0" y="0">
+				Fernziel
+			</text>
+		</g>
+		<!-- Ziel 2 Picto 1 -->
+		<g transform="translate(242, 90)">
+			<rect width="22" height="22" fill="blue" />
+		</g>
+		<!-- Ziel 2 Picto 2 -->
+		<g transform="translate(267, 90)">
+			<rect width="22" height="22" fill="blue" />
+		</g>
+		<!-- Ziel 2 Distanz -->
+		<g transform="translate(372, 110)">
+			<text font-family="Arial Narrow" text-anchor="end" font-size="26" fill="white" stroke="none" x="0" y="0">
+				10,3km
+			</text>
+		</g>
+		<!-- <g transform="translate(0,134)">
+			<text font-family="Arial Narrow" font-size="13" fill="white" stroke="none" x="0" y="0">
+				Info: Fernziel
+			</text>
+		</g> -->
+
+		<!-- Schildnummer -->
+		<g transform="translate(372,134)">
+			<text font-family="Arial Narrow" text-anchor="end" font-size="10" fill="white" stroke="none" x="0" y="0">
+				Schild-Nr. ABC1234567
+			</text>
+		</g>
+
+
+
+	</g>
+</svg>

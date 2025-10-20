@@ -2,20 +2,10 @@
 	import { Select } from 'bits-ui'
 	import Icon from '@iconify/svelte'
 
-	import Camping from '$lib/assets/symbol/pictograms/camping.svg?raw'
-	import Estateagent from '$lib/assets/symbol/pictograms/estateagent.svg?raw'
-	import Fastfood from '$lib/assets/symbol/pictograms/fastfood.svg?raw'
-	import Hillclimbing from '$lib/assets/symbol/pictograms/hillclimbing.svg?raw'
-	import Hospital from '$lib/assets/symbol/pictograms/hospital.svg?raw'
-	import Hotel from '$lib/assets/symbol/pictograms/hotel.svg?raw'
-	import Mine from '$lib/assets/symbol/pictograms/mine.svg?raw'
-	import Museum from '$lib/assets/symbol/pictograms/museum.svg?raw'
-	import Parking from '$lib/assets/symbol/pictograms/parking.svg?raw'
-	import Photo from '$lib/assets/symbol/pictograms/photo.svg?raw'
-	import Taxi from '$lib/assets/symbol/pictograms/taxi.svg?raw'
-	import Toilets from '$lib/assets/symbol/pictograms/toilets.svg?raw'
-	import Trainstation from '$lib/assets/symbol/pictograms/trainstation.svg?raw'
-	import Wastebin from '$lib/assets/symbol/pictograms/wastebin.svg?raw'
+	import GebietswegBalken from '$lib/assets/symbol/way/Gebietsweg-Balken.svg?raw'
+	import HauptwegBalken from '$lib/assets/symbol/way/Hauptweg-Balken.svg?raw'
+	import OrtswegDreieck from '$lib/assets/symbol/way/Ortsweg-Dreieck.svg?raw'
+	import RundwegDreieck from '$lib/assets/symbol/way/Rundweg-Dreieck.svg?raw'
 
 	type Props = {
 		label?: string
@@ -27,20 +17,10 @@
 	let { label = 'Symbol', value = $bindable() }: Props = $props()
 
 	const symbols: { value: string; label: string; icon: string; disabled?: boolean }[] = [
-		{ value: 'camping', label: 'Camping', icon: Camping },
-		{ value: 'estateagent', label: 'Immobilien', icon: Estateagent },
-		{ value: 'fastfood', label: 'Schnellimbiss', icon: Fastfood },
-		{ value: 'hillclimbing', label: 'Bergsteigen', icon: Hillclimbing },
-		{ value: 'hospital', label: 'Krankenhaus', icon: Hospital },
-		{ value: 'hotel', label: 'Hotel', icon: Hotel },
-		{ value: 'mine', label: 'Mine', icon: Mine },
-		{ value: 'museum', label: 'Museum', icon: Museum },
-		{ value: 'parking', label: 'Parkplatz', icon: Parking },
-		{ value: 'photo', label: 'Fotopunkt', icon: Photo },
-		{ value: 'taxi', label: 'Taxi', icon: Taxi },
-		{ value: 'toilets', label: 'Toiletten', icon: Toilets },
-		{ value: 'trainstation', label: 'Bahnhof', icon: Trainstation },
-		{ value: 'wastebin', label: 'Mülleimer', icon: Wastebin }
+		{ value: 'gebietswegBalken', label: 'Gebietsweg Rot', icon: GebietswegBalken },
+		{ value: 'hauptwegBalken', label: 'Hauptweg Blau', icon: HauptwegBalken },
+		{ value: 'ortswegDreieck', label: 'Ortsweg Grün', icon: OrtswegDreieck },
+		{ value: 'rundwegDreieck', label: 'Rundweg Gelb', icon: RundwegDreieck }
 	]
 
 	const selectedLabel = $derived(
@@ -62,22 +42,19 @@
 		open={false}
 	>
 		<Select.Trigger
-			class="h-8 w-full px-2 gap-x-2 rounded border-none inline-flex touch-none select-none items-center text-sm  bg-white data-placeholder:text-slate-400 transition-colors"
-			aria-label="Wähle ein Symbol"
+			class="h-8 w-full px-2 gap-x-2 rounded border-none inline-flex touch-none select-none items-center text-sm bg-white data-placeholder:text-slate-400 transition-colors"
+			aria-label="Wähle ein Symbolgramm"
 		>
-			{#if value}
-				<div
-					class="size-5 flex-none p-0.5 text-white bg-slate-600 rounded-sm flex items-center justify-center"
-				>
+			<div class="size-5 flex-none border border-slate-600 flex items-center justify-center">
+				{#if selectedIcon}
 					<svg class="w-full h-full" aria-hidden="true">
 						<defs>{@html selectedIcon}</defs>
-						<use href={`#${value}`} fill="currentColor" />
+						<use href={`#${value}`} />
 					</svg>
-				</div>
-			{:else}
-				<Icon icon="tabler:help-square-filled" class="flex-none size-6 text-slate-400" />
-			{/if}
-
+				{:else}
+					<Icon icon="tabler:help-square-filled" class="size-6 text-slate-400" />
+				{/if}
+			</div>
 			<span class="truncate flex-auto text-left">{selectedLabel}</span>
 			<Icon icon="tabler:chevron-down" class="flex-none size-6" />
 		</Select.Trigger>
@@ -91,18 +68,16 @@
 					<Icon icon="tabler:caret-up-filled" class="size-6" />
 				</Select.ScrollUpButton>
 
-				<Select.Viewport class="">
+				<Select.Viewport class="px-2">
 					{#each symbols as symbol, i (i + symbol.value)}
 						<Select.Item
-							class="rounded flex gap-x-2 h-9 w-full select-none items-center p-3 capitalize text-sm data-highlighted:bg-slate-100 outline-hidden data-disabled:opacity-50 "
+							class="rounded flex gap-x-2 h-10 w-full select-none items-center p-3 capitalize text-sm data-highlighted:bg-slate-100 outline-hidden data-disabled:opacity-50 "
 							value={symbol.value}
 							label={symbol.label}
 							disabled={symbol.disabled}
 						>
 							{#snippet children({ selected })}
-								<div
-									class="size-6 p-0.5 flex-none text-white bg-slate-600 rounded-sm flex items-center justify-center"
-								>
+								<div class="size-5 flex-none">
 									<svg class="w-full h-full">
 										<defs>{@html symbol.icon}</defs>
 										<use href={`#${symbol.value}`} fill="currentColor" />

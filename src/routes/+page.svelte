@@ -5,7 +5,7 @@
 	import Edit from '$lib/components/layout/Edit.svelte'
 </script>
 
-<div class="flex flex-col h-screen text-slate-800">
+<div class="flex flex-col h-screen bg-slate-50 text-slate-800">
 	<Header />
 	<div class="flex flex-auto overflow-hidden">
 		<Edit />

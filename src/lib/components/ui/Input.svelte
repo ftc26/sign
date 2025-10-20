@@ -1,10 +1,11 @@
 <script lang="ts">
 	type Props = {
+		value?: string | number
 		type: string
 		label: string
 	}
 
-	let { type = 'text', label }: Props = $props()
+	let { type = 'text', label, value = $bindable() }: Props = $props()
 </script>
 
 <div class="flex flex-col">
@@ -16,6 +17,7 @@
 	<input
 		id="input-field"
 		{type}
-		class="w-full  rounded p-2 bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
+		class="w-full h-8 rounded p-2 bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
+		bind:value
 	/>
 </div>

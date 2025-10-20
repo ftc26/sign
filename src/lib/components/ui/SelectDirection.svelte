@@ -4,22 +4,24 @@
 
 	type Props = {
 		label?: string
+		value?: string
 	}
 
-	let { label = 'Richtung' }: Props = $props()
+	let { label = 'Richtung', value = $bindable() }: Props = $props()
 
 	const directions: { value: string; label: string; disabled?: boolean; icon?: string }[] = [
-		{ value: 'left', label: 'Links', icon:'tabler:arrows-left' },
-		{ value: 'right', label: 'Rechts', icon:'tabler:arrows-right'  },
-		{ value: 'both', label: 'Links und Rechts', icon:'tabler:arrows-left-right'  }
+		{ value: 'left', label: 'Links', icon: 'tabler:arrow-bar-left' },
+		{ value: 'right', label: 'Rechts', icon: 'tabler:arrow-bar-right' },
+		// { value: 'both', label: 'Links und Rechts', icon: 'tabler:arrow-bar-both' }
 	]
 
-	let value = $state<string>('')
 	const selectedLabel = $derived(
 		value ? directions.find((symbol) => symbol.value === value)?.label : 'Wähle eine Richtung'
 	)
 	const selectedIcon = $derived(
-		value ? directions.find((symbol) => symbol.value === value)?.icon : 'tabler:arrows-left-right'
+		value
+			? directions.find((symbol) => symbol.value === value)?.icon || 'tabler:direction-sign-filled'
+			: 'tabler:direction-sign-filled'
 	)
 </script>
 
@@ -34,10 +36,10 @@
 		open={false}
 	>
 		<Select.Trigger
-			class="h-9 w-full px-2 gap-x-2 rounded border-none inline-flex touch-none select-none items-center text-sm  bg-white data-placeholder:text-slate-400 transition-colors"
-			aria-label="Wähle ein Symbolgramm"
+			class="h-8 w-full px-2 gap-x-2 rounded border-none inline-flex touch-none select-none items-center text-sm  bg-white data-placeholder:text-slate-400 transition-colors"
+			aria-label="Wähle ein Symbol"
 		>
-			<Icon icon="{selectedIcon}" class="size-6 flex-none" />
+			<Icon icon={selectedIcon} class="size-6 flex-none" />
 			<span class="truncate flex-auto text-left">{selectedLabel}</span>
 			<Icon icon="tabler:chevron-down" class="flex-none size-6" />
 		</Select.Trigger>
@@ -52,25 +54,25 @@
 				</Select.ScrollUpButton>
 
 				<Select.Viewport class="px-2">
-					{#each directions as theme, i (i + theme.value)}
+					{#each directions as direction, i (i + direction.value)}
 						<Select.Item
 							class="rounded flex gap-x-2 h-10 w-full select-none items-center p-3 capitalize text-sm data-highlighted:bg-slate-100 outline-hidden data-disabled:opacity-50 "
-							value={theme.value}
-							label={theme.label}
-							disabled={theme.disabled}
+							value={direction.value}
+							label={direction.label}
+							disabled={direction.disabled}
 						>
 							{#snippet children({ selected })}
 								<div class="size-6 flex-none">
-									{@html theme.icon}
+									<Icon icon={direction.icon || ''} class="size-6 flex-none" />
 								</div>
 
-								<span class="truncate flex-auto">{theme.label}</span>
+								<span class="truncate flex-auto">{direction.label}</span>
 
 								<div class="ml-auto">
 									{#if selected}
 										<Icon icon="tabler:check" class="size-6 flex-none" />
 									{:else}
-										<div class="size-6 flex-none" />
+										<div class="size-6 flex-none"></div>
 									{/if}
 								</div>
 							{/snippet}
