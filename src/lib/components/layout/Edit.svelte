@@ -2,8 +2,9 @@
 	import { Tabs } from 'bits-ui'
 	import CardSign from './CardSign.svelte'
 
-	import { addSign, insertSignAfter, deleteSign, getAllSigns } from '$lib/states/signs.svelte'
+	import { addSign, addSignAfter, deleteSign, getAllSigns } from '$lib/states/signs.svelte'
 	import Map from './Map.svelte'
+	import Icon from '@iconify/svelte'
 </script>
 
 <div class="p-6 bg-slate-100 w-1/3 flex overflow-hidden">
@@ -21,11 +22,22 @@
 			<Map />
 		</Tabs.Content>
 		<Tabs.Content value="config" class="select-none pt-3 flex flex-col gap-y-3 overflow-y-auto">
+			<div class="w-full flex justify-center">
+				<button
+					class="inline-flex gap-x-2 items-center px-4 py-1 bg-slate-400 text-sm text-white rounded hover:bg-slate-700 transition-colors"
+					onclick={() => addSign()}
+				>
+					<Icon icon="tabler:circle-plus-filled" class="size-5" />
+					Schild hinzufügen
+				</button>
+			</div>
 			{#each getAllSigns() as sign (sign.id)}
 				<CardSign {sign} />
 			{/each}
 		</Tabs.Content>
 		<Tabs.Content value="accessories" class="select-none pt-3">Hier das Zubehör</Tabs.Content>
-		<Tabs.Content value="order" class="select-none pt-3">Hier werden die Schilder bestellt</Tabs.Content>
+		<Tabs.Content value="order" class="select-none pt-3"
+			>Hier werden die Schilder bestellt</Tabs.Content
+		>
 	</Tabs.Root>
 </div>

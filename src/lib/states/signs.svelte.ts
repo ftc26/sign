@@ -75,15 +75,46 @@ const fakeData: Sign[] = [
 	}
 ]
 
+const defaultSign: Sign = {
+	id: '',
+	route: {
+		name: 'Neuer Weg',
+		signNumber: '12345',
+		direction: 'left',
+		symbols: []
+	},
+	// provide two directions by default so UI that accesses [0] and [1] won't crash
+	directions: [
+		{
+			name: 'Ziel 1 Neu',
+			symbols: [],
+			distance: 1234
+		},
+		{
+			name: 'Ziel 2 Neu',
+			symbols: [],
+			distance: 4567
+		}
+	],
+	appearance: {
+		orientation: 0,
+		order: 0,
+		mounting: ''
+	}
+}
+
 let signs = $state<Sign[]>(fakeData)
 
-export const addSign = (sign: Sign) => {
+export const addSign = () => {
+	const sign = { ...defaultSign, id: crypto.randomUUID() }
 	signs = [...signs, sign]
 }
 
-export const insertSignAfter = (id: string, sign: Sign) => {
+export const addSignAfter = (id: string) => {
+	console.log('Adding sign after', id)
 	const existingIndex = signs.findIndex((sign) => sign.id === id)
-	if (!existingIndex) return
+	if (existingIndex === -1) return
+	const sign = { ...defaultSign, id: crypto.randomUUID() }
 	signs = [...signs.slice(0, existingIndex + 1), sign, ...signs.slice(existingIndex + 1)]
 }
 
@@ -100,5 +131,6 @@ export const getSign = (id: string): Sign | undefined => {
 }
 
 export const getAllSigns = (): Sign[] => {
+	console.log('Getting all signs')
 	return signs
 }
