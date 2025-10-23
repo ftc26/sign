@@ -1,11 +1,10 @@
 <script lang="ts">
 	type Props = {
 		value?: string | number
-		type: string
 		label: string
 	}
 
-	let { type = 'text', label, value = $bindable() }: Props = $props()
+	let { label, value = $bindable() }: Props = $props()
 </script>
 
 <div class="flex flex-col text-sm">
@@ -14,10 +13,9 @@
 			>{label}</label
 		>
 	{/if}
-	<input
+	<textarea
 		id="input-field"
-		{type}
-		class="w-full h-8 rounded p-2 bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
+		class="w-full h-24 rounded p-2 bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
 		bind:value
-	/>
+	></textarea>
 </div>

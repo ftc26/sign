@@ -4,6 +4,22 @@ type Direction = {
 	distance: number
 }
 
+export type SignPost = {
+	name: string
+	postNumber: string
+	description: string
+	location: {
+		lat: number
+		lng: number
+	}
+	post: {
+		diameter: number
+		height: number
+	}
+	signs: Sign[]
+}
+
+
 export type Sign = {
 	id: string
 	route: {
@@ -103,60 +119,73 @@ const defaultSign: Sign = {
 	}
 }
 
-let signs = $state<Sign[]>(fakeData)
+export let signPost: SignPost = $state({
+	name: 'Beispiel Standort',
+	postNumber: 'SP12345',
+	description: 'Beschreibung des Standorts',
+	location: {
+		lat: 48.137154,
+		lng: 11.576124
+	},
+	post: {
+		diameter: 16,
+		height: 250
+	},
+	signs: fakeData
+})
+
+// let signs = $state<Sign[]>(fakeData)
 
 export const addSign = () => {
 	const sign = { ...defaultSign, id: crypto.randomUUID() }
-	signs = [sign, ...signs]
+	signPost.signs = [sign, ...signPost.signs]
 }
 
 export const addSignAfter = (id: string) => {
-	console.log('Adding sign after', id)
-	const existingIndex = signs.findIndex((sign) => sign.id === id)
+	const existingIndex = signPost.signs.findIndex((sign) => sign.id === id)
 	if (existingIndex === -1) return
 	const sign = { ...defaultSign, id: crypto.randomUUID() }
-	signs = [...signs.slice(0, existingIndex + 1), sign, ...signs.slice(existingIndex + 1)]
+	signPost.signs = [...signPost.signs.slice(0, existingIndex + 1), sign, ...signPost.signs.slice(existingIndex + 1)]
 }
 
 export const deleteSign = (id: string) => {
-	signs = signs.filter((sign) => sign.id !== id)
+	signPost.signs = signPost.signs.filter((sign) => sign.id !== id)
 }
 
 export const updateSign = (updatedSign: Sign) => {
-	signs = signs.map((sign) => (sign.id === updatedSign.id ? updatedSign : sign))
+	signPost.signs = signPost.signs.map((sign) => (sign.id === updatedSign.id ? updatedSign : sign))
 }
 
 export const moveSignUp = (id: string) => {
-	const index = signs.findIndex((sign) => sign.id === id)
+	const index = signPost.signs.findIndex((sign) => sign.id === id)
 	if (index <= 0) return
-	
-	const newSigns = [...signs]
+
+	const newSigns = [...signPost.signs]
 	const temp = newSigns[index - 1]
 	newSigns[index - 1] = newSigns[index]
 	newSigns[index] = temp
-	signs = newSigns
+	signPost.signs = newSigns
 }
 
 export const moveSignDown = (id: string) => {
-	const index = signs.findIndex((sign) => sign.id === id)
-	if (index === -1 || index >= signs.length - 1) return
-	
-	const newSigns = [...signs]
+	const index = signPost.signs.findIndex((sign) => sign.id === id)
+	if (index === -1 || index >= signPost.signs.length - 1) return
+
+	const newSigns = [...signPost.signs]
 	const temp = newSigns[index + 1]
 	newSigns[index + 1] = newSigns[index]
 	newSigns[index] = temp
-	signs = newSigns
+	signPost.signs = newSigns
 }
 
 export const getSign = (id: string): Sign | undefined => {
-	return signs.find((sign) => sign.id === id)
+	return signPost.signs.find((sign) => sign.id === id)
 }
 
 export const getAllSigns = (): Sign[] => {
-	console.log('Getting all signs')
-	return signs
+	return signPost.signs
 }
 
 export const setAllSigns = (newSigns: Sign[]) => {
-	signs = newSigns
+	signPost.signs = newSigns
 }

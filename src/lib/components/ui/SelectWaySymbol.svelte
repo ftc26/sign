@@ -28,7 +28,7 @@
 	const selected = $derived(symbols.find((symbol) => symbol.value === value))
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col truncate">
 	<label for="input-field" class="block text-xs font-medium text-slate-700 mb-1">{label}</label>
 
 	<Select.Root
