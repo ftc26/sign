@@ -1,16 +1,20 @@
 <script lang="ts">
+	import { flip } from 'svelte/animate'
 	import { Tabs } from 'bits-ui'
-	import CardSign from './CardSign.svelte'
-
-	import { addSign, addSignAfter, deleteSign, getAllSigns } from '$lib/states/signs.svelte'
-	import Map from './Map.svelte'
 	import Icon from '@iconify/svelte'
+	
+	import CardSign from './CardSign.svelte'
+	import Map from './Map.svelte'
+
+	import { addSign, getAllSigns, setAllSigns } from '$lib/states/signs.svelte'
+
+	const flipDurationMs = 300
 </script>
 
 <div class="p-6 bg-slate-100 w-1/3 flex overflow-hidden">
 	<Tabs.Root value="config" class="w-full flex flex-col">
 		<Tabs.List
-			class="bg-slate-200 rounded p-2 flex gap-x-3 *:flex-auto *:flex *:items-center *:px-2 *:h-8 *:cursor-pointer *:rounded *:font-semibold *:data-[state=active]:shadow-mini *:bg-transparent *:data-[state=active]:bg-white *:hover:bg-slate-100"
+			class="bg-slate-200 rounded p-2 flex gap-x-3 *:flex-auto *:flex *:items-center *:px-2 *:h-8 *:cursor-pointer *:rounded *:overflow-hidden *:font-semibold *:data-[state=active]:shadow-mini *:bg-transparent *:data-[state=active]:bg-white *:hover:bg-slate-100"
 		>
 			<Tabs.Trigger value="map">Karte</Tabs.Trigger>
 			<Tabs.Trigger value="config">Konfigurator</Tabs.Trigger>
@@ -28,12 +32,16 @@
 					onclick={() => addSign()}
 				>
 					<Icon icon="tabler:circle-plus-filled" class="size-5" />
-					Schild hinzufügen
+					Schild einfügen
 				</button>
 			</div>
-			{#each getAllSigns() as sign (sign.id)}
-				<CardSign {sign} />
-			{/each}
+			<div class="flex flex-col pointer-none">
+				{#each getAllSigns() as sign (sign.id)}
+					<div animate:flip={{ duration: flipDurationMs }}>
+						<CardSign {sign} />
+					</div>
+				{/each}
+			</div>
 		</Tabs.Content>
 		<Tabs.Content value="accessories" class="select-none pt-3">Hier das Zubehör</Tabs.Content>
 		<Tabs.Content value="order" class="select-none pt-3"

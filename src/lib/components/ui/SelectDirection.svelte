@@ -11,7 +11,7 @@
 
 	const directions: { value: string; label: string; disabled?: boolean; icon?: string }[] = [
 		{ value: 'left', label: 'Links', icon: 'tabler:arrow-bar-left' },
-		{ value: 'right', label: 'Rechts', icon: 'tabler:arrow-bar-right' },
+		{ value: 'right', label: 'Rechts', icon: 'tabler:arrow-bar-right' }
 		// { value: 'both', label: 'Links und Rechts', icon: 'tabler:arrow-bar-both' }
 	]
 
@@ -20,7 +20,8 @@
 	)
 	const selectedIcon = $derived(
 		value
-			? directions.find((symbol) => symbol.value === value)?.icon || 'tabler:direction-sign-filled'
+			? directions.find((symbol) => symbol.value === value)?.icon ||
+					'tabler:direction-sign-filled'
 			: 'tabler:direction-sign-filled'
 	)
 </script>

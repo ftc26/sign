@@ -1,34 +1,31 @@
 <script lang="ts">
+	import type { Component } from 'svelte'
 	import { Select } from 'bits-ui'
 	import Icon from '@iconify/svelte'
 
-	import GebietswegBalken from '$lib/assets/symbol/way/Gebietsweg-Balken.svg?raw'
-	import HauptwegBalken from '$lib/assets/symbol/way/Hauptweg-Balken.svg?raw'
-	import OrtswegDreieck from '$lib/assets/symbol/way/Ortsweg-Dreieck.svg?raw'
-	import RundwegDreieck from '$lib/assets/symbol/way/Rundweg-Dreieck.svg?raw'
+	import GebietswegBalken from '$lib/assets/symbol/way/Gebietsweg-Balken.svelte'
+	import HauptwegBalken from '$lib/assets/symbol/way/Hauptweg-Balken.svelte'
+	import OrtswegDreieck from '$lib/assets/symbol/way/Ortsweg-Dreieck.svelte'
+	import RundwegDreieck from '$lib/assets/symbol/way/Rundweg-Dreieck.svelte'
+	import type { SvelteComponent } from 'svelte'
 
 	type Props = {
 		label?: string
-		symbols?: { value: string; label: string; icon: string; disabled?: boolean }[]
+		symbols?: { value: string; label: string; icon: SvelteComponent; disabled?: boolean }[]
 		placeholder?: string
 		value?: string
 	}
 
 	let { label = 'Symbol', value = $bindable() }: Props = $props()
 
-	const symbols: { value: string; label: string; icon: string; disabled?: boolean }[] = [
+	const symbols: { value: string; label: string; icon: Component; disabled?: boolean }[] = [
 		{ value: 'gebietswegBalken', label: 'Gebietsweg Rot', icon: GebietswegBalken },
 		{ value: 'hauptwegBalken', label: 'Hauptweg Blau', icon: HauptwegBalken },
 		{ value: 'ortswegDreieck', label: 'Ortsweg Grün', icon: OrtswegDreieck },
 		{ value: 'rundwegDreieck', label: 'Rundweg Gelb', icon: RundwegDreieck }
 	]
 
-	const selectedLabel = $derived(
-		value ? symbols.find((symbol) => symbol.value === value)?.label : 'Wähle ein Symbol'
-	)
-	const selectedIcon = $derived(
-		value ? symbols.find((symbol) => symbol.value === value)?.icon : ''
-	)
+	const selected = $derived(symbols.find((symbol) => symbol.value === value))
 </script>
 
 <div class="flex flex-col">
@@ -46,16 +43,16 @@
 			aria-label="Wähle ein Symbolgramm"
 		>
 			<div class="size-5 flex-none border border-slate-600 flex items-center justify-center">
-				{#if selectedIcon}
+				{#if selected}
 					<svg class="w-full h-full" aria-hidden="true">
-						<defs>{@html selectedIcon}</defs>
+						<defs><selected.icon /></defs>
 						<use href={`#${value}`} />
 					</svg>
 				{:else}
 					<Icon icon="tabler:help-square-filled" class="size-6 text-slate-400" />
 				{/if}
 			</div>
-			<span class="truncate flex-auto text-left">{selectedLabel}</span>
+			<span class="truncate flex-auto text-left">{selected?.label || 'Wähle ein Symbol'}</span>
 			<Icon icon="tabler:chevron-down" class="flex-none size-6" />
 		</Select.Trigger>
 
@@ -79,7 +76,7 @@
 							{#snippet children({ selected })}
 								<div class="size-5 flex-none">
 									<svg class="w-full h-full">
-										<defs>{@html symbol.icon}</defs>
+										<defs><symbol.icon /></defs>
 										<use href={`#${symbol.value}`} fill="currentColor" />
 									</svg>
 								</div>
@@ -97,9 +94,11 @@
 						</Select.Item>
 					{/each}
 				</Select.Viewport>
+
 				<Select.ScrollDownButton class="flex w-full items-center justify-center">
 					<Icon icon="tabler:caret-down-filled" width="24" height="24" />
 				</Select.ScrollDownButton>
+
 			</Select.Content>
 		</Select.Portal>
 	</Select.Root>

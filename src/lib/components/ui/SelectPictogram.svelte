@@ -1,21 +1,22 @@
 <script lang="ts">
+	import type { Component } from 'svelte'
 	import { Select } from 'bits-ui'
 	import Icon from '@iconify/svelte'
 
-	import Camping from '$lib/assets/symbol/pictograms/camping.svg?raw'
-	import Estateagent from '$lib/assets/symbol/pictograms/estateagent.svg?raw'
-	import Fastfood from '$lib/assets/symbol/pictograms/fastfood.svg?raw'
-	import Hillclimbing from '$lib/assets/symbol/pictograms/hillclimbing.svg?raw'
-	import Hospital from '$lib/assets/symbol/pictograms/hospital.svg?raw'
-	import Hotel from '$lib/assets/symbol/pictograms/hotel.svg?raw'
-	import Mine from '$lib/assets/symbol/pictograms/mine.svg?raw'
-	import Museum from '$lib/assets/symbol/pictograms/museum.svg?raw'
-	import Parking from '$lib/assets/symbol/pictograms/parking.svg?raw'
-	import Photo from '$lib/assets/symbol/pictograms/photo.svg?raw'
-	import Taxi from '$lib/assets/symbol/pictograms/taxi.svg?raw'
-	import Toilets from '$lib/assets/symbol/pictograms/toilets.svg?raw'
-	import Trainstation from '$lib/assets/symbol/pictograms/trainstation.svg?raw'
-	import Wastebin from '$lib/assets/symbol/pictograms/wastebin.svg?raw'
+	import Camping from '$lib/assets/symbol/pictograms/Camping.svelte'
+	import Estateagent from '$lib/assets/symbol/pictograms/Estateagent.svelte'
+	import Fastfood from '$lib/assets/symbol/pictograms/Fastfood.svelte'
+	import Hillclimbing from '$lib/assets/symbol/pictograms/Hillclimbing.svelte'
+	import Hospital from '$lib/assets/symbol/pictograms/Hospital.svelte'
+	import Hotel from '$lib/assets/symbol/pictograms/Hotel.svelte'
+	import Mine from '$lib/assets/symbol/pictograms/Mine.svelte'
+	import Museum from '$lib/assets/symbol/pictograms/Museum.svelte'
+	import Parking from '$lib/assets/symbol/pictograms/Parking.svelte'
+	import Photo from '$lib/assets/symbol/pictograms/Photo.svelte'
+	import Taxi from '$lib/assets/symbol/pictograms/Taxi.svelte'
+	import Toilets from '$lib/assets/symbol/pictograms/Toilets.svelte'
+	import Trainstation from '$lib/assets/symbol/pictograms/Trainstation.svelte'
+	import Wastebin from '$lib/assets/symbol/pictograms/Wastebin.svelte'
 
 	type Props = {
 		label?: string
@@ -26,7 +27,7 @@
 
 	let { label = 'Symbol', value = $bindable() }: Props = $props()
 
-	const symbols: { value: string; label: string; icon: string; disabled?: boolean }[] = [
+	const symbols: { value: string; label: string; icon: Component; disabled?: boolean }[] = [
 		{ value: 'camping', label: 'Camping', icon: Camping },
 		{ value: 'estateagent', label: 'Immobilien', icon: Estateagent },
 		{ value: 'fastfood', label: 'Schnellimbiss', icon: Fastfood },
@@ -43,12 +44,7 @@
 		{ value: 'wastebin', label: 'Mülleimer', icon: Wastebin }
 	]
 
-	const selectedLabel = $derived(
-		value ? symbols.find((symbol) => symbol.value === value)?.label : 'Wähle ein Symbol'
-	)
-	const selectedIcon = $derived(
-		value ? symbols.find((symbol) => symbol.value === value)?.icon : ''
-	)
+	const selected = $derived(symbols.find((symbol) => symbol.value === value))
 </script>
 
 <div class="flex flex-col">
@@ -65,20 +61,20 @@
 			class="h-8 w-full px-2 gap-x-2 rounded border-none inline-flex touch-none select-none items-center text-sm  bg-white data-placeholder:text-slate-400 transition-colors"
 			aria-label="Wähle ein Symbol"
 		>
-			{#if value}
+			{#if selected}
 				<div
 					class="size-5 flex-none p-0.5 text-white bg-slate-600 rounded-sm flex items-center justify-center"
 				>
 					<svg class="w-full h-full" aria-hidden="true">
-						<defs>{@html selectedIcon}</defs>
+						<defs><selected.icon /></defs>
 						<use href={`#${value}`} fill="currentColor" />
 					</svg>
 				</div>
 			{:else}
-				<Icon icon="tabler:help-square-filled" class="flex-none size-6 text-slate-400" />
+				<Icon icon="tabler:help-square-filled" class="size-6 text-slate-400 flex-none" />
 			{/if}
 
-			<span class="truncate flex-auto text-left">{selectedLabel}</span>
+			<span class="truncate flex-auto text-left">{selected?.label || 'Wähle ein Symbol'}</span>
 			<Icon icon="tabler:chevron-down" class="flex-none size-6" />
 		</Select.Trigger>
 
@@ -104,7 +100,7 @@
 									class="size-6 p-0.5 flex-none text-white bg-slate-600 rounded-sm flex items-center justify-center"
 								>
 									<svg class="w-full h-full">
-										<defs>{@html symbol.icon}</defs>
+										<defs><symbol.icon /></defs>
 										<use href={`#${symbol.value}`} fill="currentColor" />
 									</svg>
 								</div>

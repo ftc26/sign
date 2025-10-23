@@ -107,7 +107,7 @@ let signs = $state<Sign[]>(fakeData)
 
 export const addSign = () => {
 	const sign = { ...defaultSign, id: crypto.randomUUID() }
-	signs = [...signs, sign]
+	signs = [sign, ...signs]
 }
 
 export const addSignAfter = (id: string) => {
@@ -126,6 +126,28 @@ export const updateSign = (updatedSign: Sign) => {
 	signs = signs.map((sign) => (sign.id === updatedSign.id ? updatedSign : sign))
 }
 
+export const moveSignUp = (id: string) => {
+	const index = signs.findIndex((sign) => sign.id === id)
+	if (index <= 0) return
+	
+	const newSigns = [...signs]
+	const temp = newSigns[index - 1]
+	newSigns[index - 1] = newSigns[index]
+	newSigns[index] = temp
+	signs = newSigns
+}
+
+export const moveSignDown = (id: string) => {
+	const index = signs.findIndex((sign) => sign.id === id)
+	if (index === -1 || index >= signs.length - 1) return
+	
+	const newSigns = [...signs]
+	const temp = newSigns[index + 1]
+	newSigns[index + 1] = newSigns[index]
+	newSigns[index] = temp
+	signs = newSigns
+}
+
 export const getSign = (id: string): Sign | undefined => {
 	return signs.find((sign) => sign.id === id)
 }
@@ -133,4 +155,8 @@ export const getSign = (id: string): Sign | undefined => {
 export const getAllSigns = (): Sign[] => {
 	console.log('Getting all signs')
 	return signs
+}
+
+export const setAllSigns = (newSigns: Sign[]) => {
+	signs = newSigns
 }

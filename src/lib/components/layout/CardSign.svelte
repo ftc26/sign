@@ -8,21 +8,35 @@
 	import SelectWaySymbol from '../ui/SelectWaySymbol.svelte'
 	import type { Sign } from '$lib/states/signs.svelte'
 
-	import { addSignAfter, deleteSign } from '$lib/states/signs.svelte'
+	import { addSignAfter, deleteSign, moveSignDown, moveSignUp } from '$lib/states/signs.svelte'
 
 	let { sign }: { sign: Sign } = $props()
 </script>
 
-<Collapsible.Root open class="w-full flex flex-col bg-slate-200 rounded text-sm">
+<Collapsible.Root open class="w-full flex flex-col bg-slate-200 rounded text-sm mb-2">
 	<!-- header -->
 	<div class="w-full flex p-3 text-slate-800">
 		<div class="font-semibold">{sign.route.name} - {sign.route.signNumber}</div>
 		<div class="flex ml-auto items-center gap-x-2">
+			<div class="flex gap-x-2 bg-slate-100 rounded-full px-2 py-1 *:cursor-pointer">
+				<Icon
+				icon="tabler:arrow-up"
+				class="size-4 text-slate-600"
+				onclick={() => moveSignUp(sign.id)}
+			/>
+			<Icon
+				icon="tabler:arrow-down"
+				class="size-4 text-slate-600"
+				onclick={() => moveSignDown(sign.id)}
+			/>
+
 			<Icon
 				icon="tabler:trash"
-				class="size-5 text-slate-600 hover:text-red-800"
+				class="size-4 text-slate-600 hover:text-red-500"
 				onclick={() => deleteSign(sign.id)}
 			/>
+			</div>
+			
 			<Collapsible.Trigger class="group" aria-label="Collapse">
 				<Icon
 					icon="tabler:chevron-down"
@@ -94,12 +108,12 @@
 </Collapsible.Root>
 
 <!-- Button to add new schild below -->
-<div class="w-full flex justify-center">
+<div class="w-full flex justify-center mb-2">
 	<button
 		class="inline-flex gap-x-2 items-center px-4 py-1 bg-slate-400 text-sm text-white rounded hover:bg-slate-700 transition-colors"
 		onclick={() => addSignAfter(sign.id)}
 	>
 		<Icon icon="tabler:circle-plus-filled" class="size-5" />
-		Schild hinzufügen
+		Schild einfügen
 	</button>
 </div>
