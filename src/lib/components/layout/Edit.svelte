@@ -2,16 +2,19 @@
 	import { flip } from 'svelte/animate'
 	import { Tabs } from 'bits-ui'
 	import Icon from '@iconify/svelte'
-	
+
 	import CardSign from './CardSign.svelte'
 	import Map from './Map.svelte'
 
 	import { addSign, getAllSigns, signPost } from '$lib/states/signs.svelte'
 
+	let collapsed = false
+	let editMode: 'graphic' | 'text' = 'graphic'
+
 	const flipDurationMs = 300
 </script>
 
-<div class="p-6 pb-0 bg-slate-100 w-1/3 flex overflow-hidden rounded-xl">
+<div class="w-1/2 p-6 pb-0 bg-slate-100 flex overflow-hidden rounded-xl">
 	<Tabs.Root value="config" class="w-full flex flex-col">
 		<Tabs.List
 			class="bg-slate-200 rounded p-2 flex gap-x-3 *:flex-auto *:flex *:items-center *:justify-center *:px-2 *:h-8 *:cursor-pointer *:rounded *:truncate *:font-semibold *:data-[state=active]:shadow-mini *:bg-transparent *:data-[state=active]:bg-white *:hover:bg-slate-100"
@@ -22,8 +25,9 @@
 		</Tabs.List>
 
 		<Tabs.Content value="map" class="select-none pt-3 flex flex-col gap-y-3 overflow-y-auto">
-			<Map {signPost}/>
+			<Map {signPost} />
 		</Tabs.Content>
+
 		<Tabs.Content value="config" class="select-none pt-3 flex flex-col gap-y-3 overflow-y-auto">
 			<div class="w-full flex justify-center">
 				<button
@@ -37,12 +41,11 @@
 			<div class="flex flex-col pointer-none">
 				{#each getAllSigns() as sign (sign.id)}
 					<div animate:flip={{ duration: flipDurationMs }}>
-						<CardSign {sign} />
+						<CardSign bind:sign {collapsed} {editMode} />
 					</div>
 				{/each}
 			</div>
 		</Tabs.Content>
 		<Tabs.Content value="accessories" class="select-none pt-3">Hier das Zubehör</Tabs.Content>
-		
 	</Tabs.Root>
 </div>

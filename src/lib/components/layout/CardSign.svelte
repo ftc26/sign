@@ -3,40 +3,50 @@
 	import Icon from '@iconify/svelte'
 	import Input from '../ui/Input.svelte'
 	import SelectDirection from '../ui/SelectDirection.svelte'
-	import SelectPictogram from '../ui/SelectPictogram.svelte'
-	import PreviewSign from './PreviewSign.svelte'
-	import SelectWaySymbol from '../ui/SelectWaySymbol.svelte'
+	import SelectPoi from '../ui/SelectPoiForm.svelte'
+	import EditSign from './EditSign.svelte'
+	import SelectRouteSymbol from '../ui/SelectRouteForm.svelte'
 	import type { Sign } from '$lib/states/signs.svelte'
 
 	import { addSignAfter, deleteSign, moveSignDown, moveSignUp } from '$lib/states/signs.svelte'
 
-	let { sign }: { sign: Sign } = $props()
+	type Props = {
+		sign: Sign
+		collapsed?: boolean
+		editMode?: 'graphic' | 'text'
+	}
+
+	let {
+		sign = $bindable<Sign>(),
+		collapsed = $bindable<boolean>(false),
+		editMode = $bindable<'graphic' | 'text'>('graphic')
+	}: Props = $props()
 </script>
 
-<Collapsible.Root open class="w-full flex flex-col bg-slate-200 rounded text-sm mb-2">
+<Collapsible.Root open={!collapsed} class="w-full flex flex-col bg-slate-200 rounded text-sm mb-2">
 	<!-- header -->
 	<div class="w-full flex p-3 text-slate-800">
 		<div class="font-semibold">{sign.route.name} - {sign.route.signNumber}</div>
 		<div class="flex ml-auto items-center gap-x-2">
 			<div class="flex gap-x-2 bg-slate-100 rounded-full px-2 py-1 *:cursor-pointer">
 				<Icon
-				icon="tabler:arrow-up"
-				class="size-4 text-slate-600"
-				onclick={() => moveSignUp(sign.id)}
-			/>
-			<Icon
-				icon="tabler:arrow-down"
-				class="size-4 text-slate-600"
-				onclick={() => moveSignDown(sign.id)}
-			/>
+					icon="tabler:arrow-up"
+					class="size-4 text-slate-600"
+					onclick={() => moveSignUp(sign.id)}
+				/>
+				<Icon
+					icon="tabler:arrow-down"
+					class="size-4 text-slate-600"
+					onclick={() => moveSignDown(sign.id)}
+				/>
 
-			<Icon
-				icon="tabler:trash"
-				class="size-4 text-slate-600 hover:text-red-500"
-				onclick={() => deleteSign(sign.id)}
-			/>
+				<Icon
+					icon="tabler:trash"
+					class="size-4 text-slate-600 hover:text-red-500"
+					onclick={() => deleteSign(sign.id)}
+				/>
 			</div>
-			
+
 			<Collapsible.Trigger class="group" aria-label="Collapse">
 				<Icon
 					icon="tabler:chevron-down"
@@ -49,60 +59,75 @@
 	<Collapsible.Content hiddenUntilFound>
 		<!-- parameters for sign -->
 		<div class="w-full p-3 pt-0 text-slate-800 flex flex-col gap-y-2">
-			<!-- General -->
-			<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
-				<span class="col-span-2"
-					><Input
-						label="Titel des Schildes"
+			{#if editMode === 'form'}
+				<!-- Route -->
+				<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
+					<span class="col-span-2"
+						><Input
+							label="Titel des Schildes"
+							type="text"
+							bind:value={sign.route.name}
+						/></span
+					>
+					<Input
+						label="Nummer des Schildes"
 						type="text"
-						bind:value={sign.route.name}
-					/></span
-				>
-				<Input label="Nummer des Schildes" type="text" bind:value={sign.route.signNumber} />
-				<SelectWaySymbol label="Wegesymbol 1" bind:value={sign.route.symbols[0]} />
-				<SelectWaySymbol label="Wegesymbol 2" bind:value={sign.route.symbols[1]} />
-			</div>
+						bind:value={sign.route.signNumber}
+					/>
+					<SelectRouteSymbol label="Wegesymbol 1" bind:value={sign.route.symbols[0]} />
+					<SelectRouteSymbol label="Wegesymbol 2" bind:value={sign.route.symbols[1]} />
+				</div>
 
-			<!-- Ziel 1 -->
-			<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
-				<span class="col-span-2"
-					><Input
-						label="Name des Ziel 1"
+				<!-- Ziel 1 -->
+				<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
+					<span class="col-span-2"
+						><Input
+							label="Name des Ziel 1"
+							type="text"
+							bind:value={sign.directions[0].name}
+						/></span
+					>
+
+					<Input
+						label="Entfernung"
 						type="text"
-						bind:value={sign.directions[0].name}
-					/></span
-				>
+						bind:value={sign.directions[0].distance}
+					/>
+					<SelectPoi label="Symbol 1" bind:value={sign.directions[0].symbols[0]} />
+					<SelectPoi label="Symbol 2" bind:value={sign.directions[0].symbols[1]} />
+				</div>
 
-				<Input label="Entfernung" type="text" bind:value={sign.directions[0].distance} />
-				<SelectPictogram label="Symbol 1" bind:value={sign.directions[0].symbols[0]} />
-				<SelectPictogram label="Symbol 2" bind:value={sign.directions[0].symbols[1]} />
-			</div>
-
-			<!-- Ziel 2 -->
-			<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
-				<span class="col-span-2"
-					><Input
-						label="Name des Ziel 2"
+				<!-- Ziel 2 -->
+				<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
+					<span class="col-span-2"
+						><Input
+							label="Name des Ziel 2"
+							type="text"
+							bind:value={sign.directions[1].name}
+						/></span
+					>
+					<Input
+						label="Entfernung"
 						type="text"
-						bind:value={sign.directions[1].name}
-					/></span
-				>
-				<Input label="Entfernung" type="text" bind:value={sign.directions[1].distance} />
-				<SelectPictogram label="Symbol 1" bind:value={sign.directions[1].symbols[0]} />
-				<SelectPictogram label="Symbol 2" bind:value={sign.directions[1].symbols[1]} />
-			</div>
+						bind:value={sign.directions[1].distance}
+					/>
+					<SelectPoi label="Symbol 1" bind:value={sign.directions[1].symbols[0]} />
+					<SelectPoi label="Symbol 2" bind:value={sign.directions[1].symbols[1]} />
+				</div>
 
-			<!-- Montage -->
-			<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
-				<SelectDirection label="Ausrichtung" bind:value={sign.route.direction} />
-				<Input label="Winkel" type="number" bind:value={sign.appearance.orientation} />
-				<Input label="Befestigung" type="text" bind:value={sign.appearance.mounting} />
-			</div>
+				<!-- Montage -->
+				<div class="w-full rounded bg-slate-300 p-3 grid grid-cols-3 gap-2">
+					<SelectDirection label="Ausrichtung" bind:value={sign.route.direction} />
+					<Input label="Winkel" type="number" bind:value={sign.appearance.orientation} />
+					<Input label="Befestigung" type="text" bind:value={sign.appearance.mounting} />
+				</div>
+			{:else}
 
 			<!-- svg preview -->
 			<div class="w-full rounded bg-slate-300 p-3 overflow-hidden">
-				<PreviewSign label="Vorschau" {sign} />
+				<EditSign bind:sign />
 			</div>
+			{/if}
 		</div>
 	</Collapsible.Content>
 </Collapsible.Root>

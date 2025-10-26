@@ -5,5 +5,5 @@
   <path d="M354.9 425.1V205.5" class="st1"/>
   <path d="M477.5 425.1V205.5" class="st1"/>
   <path d="M24.5 148.9h533.4L293.7 59.3 24.5 148.9z" class="st0"/>
-  <path stroke="currentColor" stroke-linecap="square" stroke-width="29.523" d="M42.9 149h496.4v44.1H42.9z"/>
+  <path stroke-linecap="square" stroke-width="29.523" d="M42.9 149h496.4v44.1H42.9z"/>
 </symbol>

@@ -9,6 +9,17 @@
 
 	let { signPost }: { signPost: SignPost } = $props()
 
+	const MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY
+	const MAP_STYLE_URL = MAPTILER_KEY
+		? `https://api.maptiler.com/maps/voyager/style.json?key=${MAPTILER_KEY}`
+		: 'https://api.maptiler.com/maps/voyager/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+
+	if (!MAPTILER_KEY) {
+		console.warn(
+			'MapLibre: VITE_MAPTILER_KEY is not set. Falling back to the rate-limited demo key.'
+		)
+	}
+
 	// container ref for the map
 	let mapContainer: string | HTMLElement
 
@@ -83,7 +94,7 @@
 		const initial = lngLat()
 		map = new maplibregl.Map({
 			container: mapContainer,
-			style: 'https://api.maptiler.com/maps/voyager/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
+			style: MAP_STYLE_URL,
 			center: initial,
 			zoom: 12
 		})

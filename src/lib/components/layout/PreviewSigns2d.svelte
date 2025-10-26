@@ -15,6 +15,7 @@
 	// spacing between signs vertically (px in SVG units)
 	const SPACING = 160
 	const SIGN_WIDTH = 500
+	const SIGN_HEIGHT = 150
 	const POLE_WIDTH = 16
 	const POLE_RADIUS = POLE_WIDTH / 2
 	// Desired gap from the pole equals the pole radius
@@ -65,7 +66,11 @@
 		</defs>
 		<!-- symbol definitions for each sign -->
 		{#each signs as sign}
-			<defs><SignTyp1 {sign} /></defs>
+			<defs>
+				<symbol id={sign.id} viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+					<SignTyp1 {sign} showPlaceholders={false} />
+				</symbol>
+			</defs>
 		{/each}
 
 		<!-- central pole -->
@@ -84,7 +89,13 @@
 
 		<!-- place each sign left or right and stack vertically -->
 		{#each signs as sign, i}
-			<use href={`#${sign.id}`} x={xFor(sign)} y={yFor(i)} />
+			<use
+				href={`#${sign.id}`}
+				x={xFor(sign)}
+				y={yFor(i)}
+				width={SIGN_WIDTH}
+				height={SIGN_HEIGHT}
+			/>
 		{/each}
 	</svg>
 </div>

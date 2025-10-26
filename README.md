@@ -25,6 +25,15 @@ npm run dev
 npm run dev -- --open
 ```
 
+## Environment variables
+
+Copy `.env.example` to `.env` and add your MapTiler API key so the map component can load tiles in development and production:
+
+```
+cp .env.example .env
+# edit .env and set VITE_MAPTILER_KEY
+```
+
 ## Building
 
 To create a production version of your app:
