@@ -119,6 +119,35 @@ const defaultSign: Sign = {
 	}
 }
 
+function createSignTemplate(): Sign {
+	return {
+		id: crypto.randomUUID(),
+		route: {
+			name: 'Neuer Weg',
+			signNumber: '12345',
+			direction: 'left',
+			symbols: []
+		},
+		directions: [
+			{
+				name: 'Ziel 1 Neu',
+				symbols: [],
+				distance: 1234
+			},
+			{
+				name: 'Ziel 2 Neu',
+				symbols: [],
+				distance: 4567
+			}
+		],
+		appearance: {
+			orientation: 0,
+			order: 0,
+			mounting: ''
+		}
+	}
+}
+
 export let signPost: SignPost = $state({
 	name: 'Beispiel Standort',
 	postNumber: 'SP12345',
@@ -137,14 +166,14 @@ export let signPost: SignPost = $state({
 // let signs = $state<Sign[]>(fakeData)
 
 export const addSign = () => {
-	const sign = { ...defaultSign, id: crypto.randomUUID() }
+	const sign = createSignTemplate()
 	signPost.signs = [sign, ...signPost.signs]
 }
 
 export const addSignAfter = (id: string) => {
 	const existingIndex = signPost.signs.findIndex((sign) => sign.id === id)
 	if (existingIndex === -1) return
-	const sign = { ...defaultSign, id: crypto.randomUUID() }
+	const sign = createSignTemplate()
 	signPost.signs = [...signPost.signs.slice(0, existingIndex + 1), sign, ...signPost.signs.slice(existingIndex + 1)]
 }
 

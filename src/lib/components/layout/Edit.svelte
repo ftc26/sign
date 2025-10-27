@@ -70,7 +70,7 @@
 				<div class="flex flex-col pointer-none">
 					{#each getAllSigns() as sign (sign.id)}
 						<div animate:flip={{ duration: flipDurationMs }}>
-							<CardSign bind:sign {collapsed} {editMode} />
+							<CardSign {sign} {collapsed} {editMode} />
 						</div>
 					{/each}
 				</div>
