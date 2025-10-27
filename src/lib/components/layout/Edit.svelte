@@ -14,7 +14,7 @@
 	const flipDurationMs = 300
 </script>
 
-<div class="w-1/2 p-6 pb-0 bg-slate-100 flex overflow-hidden rounded-xl">
+<div class="p-6 pb-0 bg-slate-100 flex overflow-hidden rounded-xl">
 	<Tabs.Root value="config" class="w-full flex flex-col">
 		<Tabs.List
 			class="bg-slate-200 rounded p-2 flex gap-x-3 *:flex-auto *:flex *:items-center *:justify-center *:px-2 *:h-8 *:cursor-pointer *:rounded *:truncate *:font-semibold *:data-[state=active]:shadow-mini *:bg-transparent *:data-[state=active]:bg-white *:hover:bg-slate-100"
