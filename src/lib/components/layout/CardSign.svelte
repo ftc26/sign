@@ -26,8 +26,8 @@
 
 <Collapsible.Root open={!collapsed} class="w-full flex flex-col bg-slate-200 rounded text-sm mb-2">
 	<!-- header -->
-	<div class="w-full flex p-3 text-slate-800">
-		<div class="font-semibold">{sign.route.name} - {sign.route.signNumber}</div>
+	<div class="w-full flex p-3 gap-2 text-slate-800">
+		<div class="font-semibold truncate">{sign.route.name} - {sign.route.signNumber}</div>
 		<div class="flex ml-auto items-center gap-x-2">
 			<div class="flex gap-x-2 bg-slate-100 rounded-full px-2 py-1 *:cursor-pointer">
 				<Icon
