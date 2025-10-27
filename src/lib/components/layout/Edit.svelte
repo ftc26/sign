@@ -9,7 +9,7 @@
 	import { addSign, getAllSigns, signPost } from '$lib/states/signs.svelte'
 
 	let collapsed = false
-	let editMode: 'graphic' | 'text' = 'graphic'
+	let editMode: 'graphic' | 'form' = 'graphic'
 
 	const flipDurationMs = 300
 </script>
@@ -28,23 +28,54 @@
 			<Map {signPost} />
 		</Tabs.Content>
 
-		<Tabs.Content value="config" class="select-none pt-3 flex flex-col gap-y-3 overflow-y-auto">
-			<div class="w-full flex justify-center">
+		<Tabs.Content value="config" class="select-none pt-2 flex flex-col flex-auto min-h-0">
+			<div class="w-full flex p-2 gap-2 justify-end bg-slate-200 rounded">
 				<button
-					class="inline-flex gap-x-2 items-center px-4 py-1 bg-slate-400 text-sm text-white rounded hover:bg-slate-700 transition-colors"
-					onclick={() => addSign()}
+					type="button"
+					class="inline-flex items-center justify-center size-7 bg-slate-400 text-white rounded-full hover:bg-slate-700 transition-colors"
+					onclick={() => {
+						collapsed = !collapsed
+					}}
+					title={collapsed ? 'Karten aufklappen' : 'Karten einklappen'}
 				>
-					<Icon icon="tabler:circle-plus-filled" class="size-5" />
-					Schild einfügen
+					<Icon
+						icon={collapsed ? 'tabler:arrows-maximize' : 'tabler:arrows-minimize'}
+						class="size-4"
+					/>
+				</button>
+				<button
+					type="button"
+					class="inline-flex items-center justify-center size-7 bg-slate-400 text-white rounded-full hover:bg-slate-700 transition-colors"
+					onclick={() => {
+						editMode = editMode === 'graphic' ? 'form' : 'graphic'
+					}}
+				>
+					<Icon
+						icon={editMode === 'graphic' ? 'tabler:forms' : 'tabler:sign-right'}
+						class="size-4"
+					/>
 				</button>
 			</div>
-			<div class="flex flex-col pointer-none">
-				{#each getAllSigns() as sign (sign.id)}
-					<div animate:flip={{ duration: flipDurationMs }}>
-						<CardSign bind:sign {collapsed} {editMode} />
-					</div>
-				{/each}
+
+			<div class="flex-auto overflow-y-auto min-h-0">
+				<div class="w-full flex justify-center">
+					<button
+						class="inline-flex gap-x-2 items-center px-4 py-1 my-2 bg-slate-400 text-sm text-white rounded hover:bg-slate-700 transition-colors"
+						onclick={() => addSign()}
+					>
+						<Icon icon="tabler:circle-plus-filled" class="size-5" />
+						Schild einfügen
+					</button>
+				</div>
+				<div class="flex flex-col pointer-none">
+					{#each getAllSigns() as sign (sign.id)}
+						<div animate:flip={{ duration: flipDurationMs }}>
+							<CardSign bind:sign {collapsed} {editMode} />
+						</div>
+					{/each}
+				</div>
 			</div>
+
 		</Tabs.Content>
 		<Tabs.Content value="accessories" class="select-none pt-3">Hier das Zubehör</Tabs.Content>
 	</Tabs.Root>

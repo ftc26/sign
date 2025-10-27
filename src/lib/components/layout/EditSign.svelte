@@ -24,7 +24,12 @@
 
 	// Configuration for field mappings
 	const FIELD_CONFIG: Record<string, FieldConfig> = {
-		routeName: { label: 'Name der Weges', type: 'popover', path: ['route', 'name'], inputType: 'text' },
+		routeName: {
+			label: 'Name der Weges',
+			type: 'popover',
+			path: ['route', 'name'],
+			inputType: 'text'
+		},
 		routeSymbol1: {
 			label: 'Symbol 1 Weg',
 			type: 'select',

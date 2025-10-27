@@ -13,14 +13,15 @@
 	type Props = {
 		sign: Sign
 		collapsed?: boolean
-		editMode?: 'graphic' | 'text'
+		editMode?: 'graphic' | 'form'
 	}
 
 	let {
 		sign = $bindable<Sign>(),
 		collapsed = $bindable<boolean>(false),
-		editMode = $bindable<'graphic' | 'text'>('graphic')
+		editMode = 'graphic'
 	}: Props = $props()
+
 </script>
 
 <Collapsible.Root open={!collapsed} class="w-full flex flex-col bg-slate-200 rounded text-sm mb-2">
